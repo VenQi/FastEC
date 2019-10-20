@@ -4,11 +4,12 @@ import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.WeakHashMap;
 
 //配置信息存储
 public class Configrator {
-    private static final WeakHashMap<String,Object> LATTE_CONFIGS = new WeakHashMap<>();
+    private static final HashMap<String,Object> LATTE_CONFIGS = new HashMap<>();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
     public static Configrator getInstance(){
         return Holder.INSTANCE;
@@ -17,7 +18,7 @@ public class Configrator {
         LATTE_CONFIGS.put(ConfigType.CONFIG_READY.name(),false);
     }
 
-    final WeakHashMap<String,Object> getLatteConfigs(){
+    final HashMap<String,Object> getLatteConfigs(){
         return LATTE_CONFIGS;
     }
     private static class Holder{

@@ -2,7 +2,7 @@ package com.example.latte.core.app;
 
 import android.content.Context;
 
-import java.util.WeakHashMap;
+import java.util.HashMap;
 
 //工具类 暴露出去的接口
 public final class Latte {
@@ -11,7 +11,10 @@ public final class Latte {
         return Configrator.getInstance();
     }
 
-    private static WeakHashMap<String,Object> getConfigurations(){
+    private static HashMap<String,Object> getConfigurations(){
         return Configrator.getInstance().getLatteConfigs();
+    }
+    public static Context getApplicationContext(){
+        return (Context)getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
     }
 }
