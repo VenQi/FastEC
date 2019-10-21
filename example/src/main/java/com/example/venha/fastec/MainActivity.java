@@ -2,12 +2,20 @@ package com.example.venha.fastec;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
-public class MainActivity extends Activity {
+import com.example.latte.core.activities.ProxyActivity;
+import com.example.latte.core.delegates.LatteDelegate;
+
+public class MainActivity extends ProxyActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public LatteDelegate setRootDelegate() {
+        return new MyMainDelegate();
     }
 }

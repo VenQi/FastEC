@@ -1,15 +1,14 @@
 apply plugin: 'com.android.library'
 
+def configs = rootProject.ext.android
+def library = rootProject.ext.mydependencies
 android {
-    compileSdkVersion 28
-
-
-
+    compileSdkVersion configs.compileSdkVersion
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion configs.minSdkVersion
+        targetSdkVersion configs.targetSdkVersion
+        versionCode configs.versionCode
+        versionName configs.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -20,6 +19,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    // Butterknife requires Java 8.
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     configurations.all {
         resolutionStrategy.force 'com.android.support:support-v4:28.0.0'
@@ -32,11 +36,25 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testImplementation 'junit:junit:4.12'
-    api 'com.android.support:appcompat-v7:28.0.0'
-    api 'com.android.support:support-v4:28.0.0'
+    api library.appcompat_v7
+    api library.support_v4
+//    api 'com.android.support:support-annotations:28.0.0'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
     implementation project(':latte-annotations')
     //图标
-    api 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2'
-    api 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
+    api library.iconify_ionicons
+    api library.iconify_fontawesome
+
+    //fragment依赖
+    // To get SwipeBack feature, rely on both fragmentation & fragmentation-swipeback
+    api library.fragmentation
+   // Swipeback is based on fragmentation. Refer to SwipeBackActivity/Fragment for your Customized SupportActivity/Fragment
+    api library.fragmentation_swipeback
+
+    //黄油刀依赖
+    api library.butterKnife
+    annotationProcessor library.butterKnife_processer
+
 
 }
