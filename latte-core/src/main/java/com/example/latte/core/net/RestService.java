@@ -5,8 +5,10 @@ package com.example.latte.core.net;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -29,9 +31,29 @@ public interface RestService {
     @POST
     Call<String> post(@Url String  url, @FieldMap Map<String,Object> params);
 
+    /**
+     * 当使用元数据的时候，不加@FormUrlEncoded,同理还有putRaw
+     *
+     * @param url
+     * @param body
+     * @return
+     */
+    @POST
+    Call<String> postRaw(@Url String  url, @Body RequestBody body);
+
     @FormUrlEncoded
     @PUT
     Call<String> put(@Url String  url, @FieldMap Map<String,Object> params);
+
+    /**
+     * 当使用元数据的时候，不加@FormUrlEncoded,同理还有putRaw
+     *
+     * @param url
+     * @param body
+     * @return
+     */
+    @PUT
+    Call<String> putRaw(@Url String  url, @Body RequestBody body);
 
     @DELETE
     Call<String> delete(@Url String  url, @QueryMap Map<String,Object> params);

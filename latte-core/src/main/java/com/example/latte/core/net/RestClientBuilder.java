@@ -8,6 +8,7 @@ import com.example.latte.core.net.callback.IRequest;
 import com.example.latte.core.net.callback.ISucess;
 import com.example.latte.core.ui.LoaderStyle;
 
+import java.io.File;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -22,6 +23,7 @@ public class RestClientBuilder {
     private  IError mIError = null;
     private  IFailure mIFailure = null;
     private  RequestBody mRequestBody = null;
+    private File mFile = null;
     private Context mContext = null;
     private LoaderStyle mLoaderStyle = null;
     RestClientBuilder(){
@@ -70,6 +72,21 @@ public class RestClientBuilder {
         return  this;
     }
 
+    public final RestClientBuilder file(File file){
+        this.mFile = file;
+        return  this;
+    }
+    public final RestClientBuilder file(String path){
+        this.mFile = new File(path);
+        return  this;
+    }
+
+    /**
+     * 定义loadingview的样式
+     * @param context
+     * @param loaderStyle
+     * @return
+     */
     public final RestClientBuilder loader(Context context,LoaderStyle loaderStyle){
         this.mContext = context;
         this.mLoaderStyle = loaderStyle;
@@ -81,6 +98,6 @@ public class RestClientBuilder {
         return  this;
     }
     public final RestClient build(){
-        return new RestClient(mUrl,PARAMS,mIRequest,mISucess,mIError,mIFailure,mRequestBody,mContext,mLoaderStyle);
+        return new RestClient(mUrl,PARAMS,mIRequest,mISucess,mIError,mIFailure,mRequestBody,mFile,mContext,mLoaderStyle);
     }
 }
