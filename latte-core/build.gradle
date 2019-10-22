@@ -56,5 +56,10 @@ dependencies {
     api library.butterKnife
     annotationProcessor library.butterKnife_processer
 
+    //网络请求依赖
+    api library.okio
+    api library.okhttp3
+    api library.retrofit2
+    api library.retrofit2_converter_scalars
 
 }
