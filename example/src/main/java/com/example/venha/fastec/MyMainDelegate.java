@@ -2,7 +2,9 @@ package com.example.venha.fastec;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.latte.core.delegates.LatteDelegate;
 import com.example.latte.core.net.RestClient;
@@ -19,39 +21,41 @@ public class MyMainDelegate extends LatteDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle saveInstanceState, View rootView) {
+        testRestClient();
 
     }
 
     private void testRestClient(){
         RestClient.builder()
-                .url("")
-                .params("","")
+                .url("https://news.baidu.com/")
                 .success(new ISucess() {
                     @Override
                     public void onSuccess(String response) {
-
+                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+                        Log.e("TEST",response);
                     }
                 }).failure(new IFailure() {
             @Override
             public void onFailure() {
-
+                Log.e("TEST","onFailure");
             }
         }).error(new IError() {
             @Override
             public void onError(int code, String msg) {
-
+                Log.e("TEST","error"+code + msg);
             }
         }).onRequest(new IRequest() {
             @Override
             public void onRequestStart() {
-
+                Log.e("TEST","onRequestStart");
             }
 
             @Override
             public void onRequestEnd() {
-
+                Log.e("TEST","onRequestEnd");
             }
-        }).build();
+        }).build()
+        .get();
     }
 }
 
