@@ -62,4 +62,6 @@ dependencies {
     api library.retrofit2
     api library.retrofit2_converter_scalars
 
+    //开源加载view 库依赖
+    api library.avloading
 }

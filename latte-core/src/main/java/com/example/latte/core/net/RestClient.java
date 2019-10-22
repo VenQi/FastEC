@@ -1,10 +1,14 @@
 package com.example.latte.core.net;
 
+import android.content.Context;
+
 import com.example.latte.core.net.callback.IError;
 import com.example.latte.core.net.callback.IFailure;
 import com.example.latte.core.net.callback.IRequest;
 import com.example.latte.core.net.callback.ISucess;
 import com.example.latte.core.net.callback.ResquestCallBacks;
+import com.example.latte.core.ui.LatteLoader;
+import com.example.latte.core.ui.LoaderStyle;
 
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -28,12 +32,18 @@ public class RestClient {
     private final IFailure FAILURE;
     private final RequestBody BODY;
 
+    //使用正在加载的图标
+    private final LoaderStyle LOADERS_STYPE;
+    private final Context CONTEXT;
+
     public RestClient(String url,
                       Map<String, Object> params,
                       IRequest request, ISucess sucess,
                       IError error,
                       IFailure failure,
-                      RequestBody body) {
+                      RequestBody body,
+                      Context context,
+                      LoaderStyle loaderStyle) {
         this.URL = url;
         this.PARAMS.putAll(params);
         this.REQUEST = request;
@@ -41,6 +51,8 @@ public class RestClient {
         this.ERROR = error;
         this.FAILURE = failure;
         this.BODY = body;
+        this.CONTEXT = context;
+        this.LOADERS_STYPE = loaderStyle;
     }
 
     public static RestClientBuilder builder(){
@@ -54,6 +66,9 @@ public class RestClient {
         if (REQUEST != null)
             REQUEST.onRequestStart();
 
+        if (LOADERS_STYPE != null){
+            LatteLoader.showLoading(CONTEXT,LOADERS_STYPE);
+        }
         switch (method){
             case GET:
                 call = service.get(URL,PARAMS);
@@ -76,7 +91,7 @@ public class RestClient {
     }
 
     private Callback<String> getRequestCallback(){
-        return new ResquestCallBacks(REQUEST,SUCCESS,ERROR,FAILURE);
+        return new ResquestCallBacks(REQUEST,SUCCESS,ERROR,FAILURE,LOADERS_STYPE);
     }
 
     public final void get(){
