@@ -1,12 +1,14 @@
 package com.example.latte.core.net;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import com.example.latte.core.net.callback.IError;
 import com.example.latte.core.net.callback.IFailure;
 import com.example.latte.core.net.callback.IRequest;
 import com.example.latte.core.net.callback.ISucess;
 import com.example.latte.core.net.callback.ResquestCallBacks;
+import com.example.latte.core.net.download.DownloadHandler;
 import com.example.latte.core.ui.LatteLoader;
 import com.example.latte.core.ui.LoaderStyle;
 
@@ -34,12 +36,18 @@ public class RestClient {
     private final IFailure FAILURE;
     private final RequestBody BODY;
 
+
     //使用正在加载的图标
     private final LoaderStyle LOADERS_STYPE;
     private final Context CONTEXT;
 
     //上传的file
     private final File FILE;
+    //下载相关的参数
+    private final String DOWNLOAD_DIR; //下载的地址
+    private final String EXTENSION;  //下载扩展参数
+    private final String NAME; //下载文件名
+
 
     public RestClient(String url,
                       Map<String, Object> params,
@@ -48,6 +56,9 @@ public class RestClient {
                       IFailure failure,
                       RequestBody body,
                       File file,
+                      String name,
+                      String download_dir,
+                      String extension,
                       Context context,
                       LoaderStyle loaderStyle) {
         this.URL = url;
@@ -58,6 +69,9 @@ public class RestClient {
         this.FAILURE = failure;
         this.BODY = body;
         this.FILE = file;
+        this.NAME = name;
+        this.DOWNLOAD_DIR = download_dir;
+        this.EXTENSION = extension;
         this.CONTEXT = context;
         this.LOADERS_STYPE = loaderStyle;
     }
@@ -142,6 +156,11 @@ public class RestClient {
             request(HttpMethod.PUT_RAW);
         }
 
+    }
+
+    public final void download(){
+        new DownloadHandler(URL,REQUEST,SUCCESS,ERROR,FAILURE,DOWNLOAD_DIR,EXTENSION, NAME)
+                .handleDownload();
     }
 
 }

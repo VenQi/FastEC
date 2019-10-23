@@ -26,6 +26,11 @@ public class RestClientBuilder {
     private File mFile = null;
     private Context mContext = null;
     private LoaderStyle mLoaderStyle = null;
+
+    //下载相关的参数
+    private String mDownloadDir = null; //下载的地址
+    private String mExtension = null;  //下载扩展参数
+    private String mName = null; //下载文件的名字
     RestClientBuilder(){
     }
     /**
@@ -81,6 +86,19 @@ public class RestClientBuilder {
         return  this;
     }
 
+    public final RestClientBuilder name(String name){
+        this.mName = name;
+        return  this;
+    }
+    public final RestClientBuilder downloadDir(String mDownloadDir){
+        this.mDownloadDir = mDownloadDir;
+        return  this;
+    }
+    public final RestClientBuilder extension(String extension){
+        this.mExtension = extension;
+        return  this;
+    }
+
     /**
      * 定义loadingview的样式
      * @param context
@@ -98,6 +116,6 @@ public class RestClientBuilder {
         return  this;
     }
     public final RestClient build(){
-        return new RestClient(mUrl,PARAMS,mIRequest,mISucess,mIError,mIFailure,mRequestBody,mFile,mContext,mLoaderStyle);
+        return new RestClient(mUrl,PARAMS,mIRequest,mISucess,mIError,mIFailure,mRequestBody,mFile,mName,mDownloadDir,mExtension,mContext,mLoaderStyle);
     }
 }
