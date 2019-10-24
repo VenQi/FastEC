@@ -5,12 +5,16 @@ import com.joanzapata.iconify.Iconify;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.WeakHashMap;
+
+import okhttp3.Interceptor;
 
 //配置信息存储
 public class Configrator {
-    private static final HashMap<String,Object> LATTE_CONFIGS = new HashMap<>();
+    private static final HashMap<Object,Object> LATTE_CONFIGS = new HashMap<>();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
+
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();//用来拦截请求，可以模拟服务端返回请求
+
     public static Configrator getInstance(){
         return Holder.INSTANCE;
     }
@@ -18,7 +22,7 @@ public class Configrator {
         LATTE_CONFIGS.put(ConfigType.CONFIG_READY.name(),false);
     }
 
-    final HashMap<String,Object> getLatteConfigs(){
+    final HashMap<Object,Object> getLatteConfigs(){
         return LATTE_CONFIGS;
     }
     private static class Holder{
@@ -47,6 +51,18 @@ public class Configrator {
             }
         }
     }
+
+    public final Configrator withInterceptor(Interceptor interceptor){
+        INTERCEPTORS.add(interceptor);
+        LATTE_CONFIGS.put(ConfigType.INTERCEPTOR,INTERCEPTORS);
+        return this;
+    }
+    public final Configrator withInterceptors(ArrayList<Interceptor> interceptors){
+        INTERCEPTORS.addAll(interceptors);
+        LATTE_CONFIGS.put(ConfigType.INTERCEPTOR,INTERCEPTORS);
+        return this;
+    }
+
     private void checkConfiguration(){
         final boolean isReady =(boolean)LATTE_CONFIGS.get(ConfigType.CONFIG_READY.name());
         if (!isReady){

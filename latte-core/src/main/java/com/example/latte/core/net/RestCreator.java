@@ -3,10 +3,12 @@ package com.example.latte.core.net;
 import com.example.latte.core.app.ConfigType;
 import com.example.latte.core.app.Latte;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -38,7 +40,20 @@ public class RestCreator {
     //后续如果用到拦截器需要在OK_HTTP_CLIENT的内部进行添加
     private static final class OKHttpHolder{
         private static final int TIME_OUT = 60;//miao
-        private static final OkHttpClient OK_HTTP_CLIENT =  new OkHttpClient.Builder()
+
+        private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
+        private static final ArrayList<Interceptor> INTERCEPTORS = (ArrayList<Interceptor>) Latte.getConfigurations().get(ConfigType.INTERCEPTOR);
+
+        private static OkHttpClient.Builder addInterceptor(){
+            if (INTERCEPTORS != null && !INTERCEPTORS.isEmpty()){
+                for (Interceptor interceptor:INTERCEPTORS){
+                    BUILDER.addInterceptor(interceptor);
+                }
+            }
+            return BUILDER;
+        }
+
+        private static final OkHttpClient OK_HTTP_CLIENT =  addInterceptor()
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .build();
     }
