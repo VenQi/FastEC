@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.example.latte.core.app.Latte;
+import com.example.latte.core.net.myinterceptors.DebugInterceptor;
 import com.example.latte.ec.FontEcMoudle;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
@@ -16,6 +17,7 @@ public class MyApplication extends Application {
                 .withApiHost("http://127.0.0.1")
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcMoudle())
+                .withInterceptor(new DebugInterceptor("index",R.raw.hello))
                 .configure();
     }
 
