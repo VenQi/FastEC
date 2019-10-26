@@ -12,6 +12,14 @@ import com.example.latte.core.net.callback.IError;
 import com.example.latte.core.net.callback.IFailure;
 import com.example.latte.core.net.callback.IRequest;
 import com.example.latte.core.net.callback.ISucess;
+import com.example.latte.core.net.rx.RxRestClient;
+import com.example.latte.core.ui.LatteLoader;
+
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MyMainDelegate extends LatteDelegate {
     @Override
@@ -21,10 +29,41 @@ public class MyMainDelegate extends LatteDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle saveInstanceState, View rootView) {
-        testRestClient();
+        testRxRestClient();
 
     }
 
+    private void testRxRestClient(){//测试用，没什么卵用
+        RxRestClient.builder()
+                .url("https://news.baidu.com/index/")
+                .loader(getContext())
+                .build()
+                .get()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Toast.makeText(getContext(),s,Toast.LENGTH_LONG).show();
+                        LatteLoader.stopLoading();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
     private void testRestClient(){
         RestClient.builder()
                 .url("http://news.baidu.com/index")

@@ -2,6 +2,8 @@ package com.example.latte.core.net;
 
 import com.example.latte.core.app.ConfigType;
 import com.example.latte.core.app.Latte;
+import com.example.latte.core.net.rx.RxRestService;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -24,9 +26,7 @@ public class RestCreator {
         return ParamsHolder.PARAMS;
     }
 
-    public static RestService getRestService(){
-        return RestServiceHolder.REST_SERVICE;
-    }
+
 
     //使用静态内部类可以实现类的懒加载
     private static final class  RetrofitHolder{
@@ -35,6 +35,7 @@ public class RestCreator {
                 .baseUrl(BASE_URL)
                 .client(OKHttpHolder.OK_HTTP_CLIENT)
                 .addConverterFactory(ScalarsConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
     //后续如果用到拦截器需要在OK_HTTP_CLIENT的内部进行添加
@@ -57,8 +58,21 @@ public class RestCreator {
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .build();
     }
+    //获取RestService
+    public static RestService getRestService(){
+        return RestServiceHolder.REST_SERVICE;
+    }
     private static final class RestServiceHolder{
         private static final RestService REST_SERVICE =
                 RetrofitHolder.RETROFIT_CLIENT.create(RestService.class);
+    }
+
+    //获取RxRestService
+    public static RxRestService getRxRestService(){
+        return RxRestServiceHolder.RX_REST_SERVICE;
+    }
+    private static final class RxRestServiceHolder{
+        private static final RxRestService RX_REST_SERVICE =
+                RetrofitHolder.RETROFIT_CLIENT.create(RxRestService.class);
     }
 }
