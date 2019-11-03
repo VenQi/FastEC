@@ -1,17 +1,18 @@
 package com.example.latte.ec.launcher;
 
-import android.icu.text.MessageFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
 import com.example.latte.core.delegates.LatteDelegate;
+import com.example.latte.core.utils.storage.LattePreference;
 import com.example.latte.core.utils.timer.BaseTimerTask;
 import com.example.latte.core.utils.timer.ITimerListener;
 import com.example.latte.ec.R;
 import com.example.latte.ec.R2;
 
+import java.text.MessageFormat;
 import java.util.Timer;
 
 import butterknife.BindView;
@@ -28,7 +29,11 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener{
 
     @OnClick(R2.id.tv_timer_area)
     void onClickTimerView(){
-
+        if (mTimer != null){
+            mTimer.cancel();
+            mTimer = null;
+            checkIsShowScrollLauncher();
+        }
     }
 
     private void initTimer(){
@@ -46,6 +51,15 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener{
         initTimer();
     }
 
+    //判断是否显示滑动启动页
+    private void checkIsShowScrollLauncher(){
+        if (!LattePreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())){
+            start(new LauncherScrollDelegate(),SINGLETASK);
+        }else {
+            // TODO: 2019/11/3 这里也要检查用户是否登录了应用
+        }
+    }
+
     @Override
     public void onTimer() {
 
@@ -59,6 +73,7 @@ public class LauncherDelegate extends LatteDelegate implements ITimerListener{
                         if (mTimer != null){
                             mTimer.cancel();
                             mTimer = null;
+                            checkIsShowScrollLauncher();
                         }
                     }
                 }
