@@ -3,7 +3,7 @@ package com.example.latte.core.net.rx;
 import android.content.Context;
 
 import com.example.latte.core.net.RestCreator;
-import com.example.latte.core.ui.LoaderStyle;
+import com.example.latte.core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;

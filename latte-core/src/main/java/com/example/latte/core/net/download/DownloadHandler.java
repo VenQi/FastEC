@@ -1,6 +1,5 @@
 package com.example.latte.core.net.download;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import com.example.latte.core.net.RestCreator;
@@ -8,12 +7,9 @@ import com.example.latte.core.net.callback.IError;
 import com.example.latte.core.net.callback.IFailure;
 import com.example.latte.core.net.callback.IRequest;
 import com.example.latte.core.net.callback.ISucess;
-import com.example.latte.core.ui.LoaderStyle;
 
-import java.io.File;
 import java.util.WeakHashMap;
 
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;

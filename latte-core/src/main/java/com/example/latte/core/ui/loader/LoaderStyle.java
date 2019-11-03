@@ -1,4 +1,4 @@
-package com.example.latte.core.ui;
+package com.example.latte.core.ui.loader;
 @SuppressWarnings("unused")
 public enum LoaderStyle {
     BallPulseIndicator,

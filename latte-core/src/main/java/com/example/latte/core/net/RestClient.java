@@ -1,7 +1,6 @@
 package com.example.latte.core.net;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 
 import com.example.latte.core.net.callback.IError;
 import com.example.latte.core.net.callback.IFailure;
@@ -9,8 +8,8 @@ import com.example.latte.core.net.callback.IRequest;
 import com.example.latte.core.net.callback.ISucess;
 import com.example.latte.core.net.callback.ResquestCallBacks;
 import com.example.latte.core.net.download.DownloadHandler;
-import com.example.latte.core.ui.LatteLoader;
-import com.example.latte.core.ui.LoaderStyle;
+import com.example.latte.core.ui.loader.LatteLoader;
+import com.example.latte.core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;

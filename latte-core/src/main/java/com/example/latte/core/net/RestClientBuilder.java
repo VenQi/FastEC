@@ -6,11 +6,10 @@ import com.example.latte.core.net.callback.IError;
 import com.example.latte.core.net.callback.IFailure;
 import com.example.latte.core.net.callback.IRequest;
 import com.example.latte.core.net.callback.ISucess;
-import com.example.latte.core.ui.LoaderStyle;
+import com.example.latte.core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;

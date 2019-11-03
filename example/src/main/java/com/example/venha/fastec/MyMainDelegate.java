@@ -13,10 +13,9 @@ import com.example.latte.core.net.callback.IFailure;
 import com.example.latte.core.net.callback.IRequest;
 import com.example.latte.core.net.callback.ISucess;
 import com.example.latte.core.net.rx.RxRestClient;
-import com.example.latte.core.ui.LatteLoader;
+import com.example.latte.core.ui.loader.LatteLoader;
 
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
