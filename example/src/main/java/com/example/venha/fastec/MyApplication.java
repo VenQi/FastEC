@@ -6,7 +6,7 @@ import android.support.multidex.MultiDex;
 
 import com.example.latte.core.app.Latte;
 import com.example.latte.core.net.myinterceptors.DebugInterceptor;
-import com.example.latte.ec.FontEcMoudle;
+import com.example.latte.ec.icon.FontEcMoudle;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 public class MyApplication extends Application {

@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.example.latte.core.activities.ProxyActivity;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
@@ -23,7 +25,7 @@ public abstract class BaseDelegate extends SwipeBackFragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = null;
+        final View rootView;
         if (setLayout() instanceof Integer){
             rootView = inflater.inflate((Integer) setLayout(),container,false);
         }else if (setLayout() instanceof View){
@@ -38,6 +40,9 @@ public abstract class BaseDelegate extends SwipeBackFragment{
         return rootView;
     }
 
+    public final ProxyActivity getProxyActivity(){
+        return (ProxyActivity) _mActivity;
+    }
 
     @Override
     public void onDestroyView() {

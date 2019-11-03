@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 28
@@ -27,4 +28,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     api project(':latte-core')
+//    api rootProject.ext.mydependencies.butterKnife
+    annotationProcessor rootProject.ext.mydependencies.butterKnife_processer
 }

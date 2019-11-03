@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.example.latte.core.activities.ProxyActivity;
 import com.example.latte.core.delegates.LatteDelegate;
+import com.example.latte.ec.launcher.LauncherDelegate;
 
 public class MainActivity extends ProxyActivity {
 
@@ -16,6 +17,6 @@ public class MainActivity extends ProxyActivity {
 
     @Override
     public LatteDelegate setRootDelegate() {
-        return new MyMainDelegate();
+        return new LauncherDelegate();
     }
 }

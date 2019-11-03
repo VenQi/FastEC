@@ -1,4 +1,4 @@
-package com.example.latte.ec;
+package com.example.latte.ec.icon;
 
 import com.joanzapata.iconify.Icon;
 
