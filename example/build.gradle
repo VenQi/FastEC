@@ -30,4 +30,8 @@ dependencies {
     api project(':latte-ec')
     annotationProcessor project(':latte-complier')
     implementation "com.android.support:multidex:1.0.3"
+
+    //测试使用，facebook数据库查看工具，还能把原生界面映射到web上::todo:理解基于react的抽象渲染方式
+    api 'com.facebook.stetho:stetho:1.4.2'
+    api 'com.facebook.stetho:stetho-okhttp3:1.4.2'
 }
